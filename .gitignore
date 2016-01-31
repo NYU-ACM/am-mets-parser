@@ -1,3 +1,4 @@
 project/
 target/
-test.xml
+*.xml
+*.csv
