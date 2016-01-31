@@ -21,7 +21,7 @@ object Main extends App {
   //process the summary into a map
   
   var map = Map.empty[String, Tuple2[Int, Long]]
-  
+
   fileObjects.foreach { fo =>
   	map.contains(fo.fileType) match {
   		case true => { 
@@ -47,11 +47,9 @@ object Main extends App {
 
   keys.foreach { key => 
   	val values = map(key)
-  	
-  	val count = values._1 + 1
-  	val size = values._2 + fo.size
-  	totalCount = totalCount + count
-		totalSize = totalSize + size
+
+		totalSize = totalSize + values._2
+  	totalCount = totalCount + values._1
   	
   	writer.write("\"" + key 
   		+ "\",\"" + values._1.toString 
