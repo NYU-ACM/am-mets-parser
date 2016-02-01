@@ -33,8 +33,6 @@ object Main extends App {
   		}
   	}
   }
-
-  
   
   //format a report
   var totalCount = 0
@@ -68,7 +66,6 @@ object Main extends App {
   writer.flush
   writer.close
 
-  
   def formatSize(v: Long): String = {
   	//this function is not outputting the correct results
     if (v < 1024) {  v + " B" }
@@ -112,7 +109,6 @@ object Main extends App {
   		}
   		case _ => getType
   	}
-
   }
 
   def getSize(): Long = {
