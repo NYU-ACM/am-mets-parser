@@ -5,7 +5,7 @@ import java.util.UUID
 import javax.xml.stream._
 import javax.xml.stream.events._
 
-object Main extends App {
+object Main extends App with ChartSupport {
 	
 	case class FileObject(uuid: UUID, size: Long, fileType: String)
 
@@ -34,6 +34,9 @@ object Main extends App {
   	}
   }
   
+  //generate pie charts
+  createChart(map)
+
   //format a report
   var totalCount = 0
   var totalSize = 0L

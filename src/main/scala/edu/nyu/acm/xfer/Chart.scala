@@ -4,18 +4,29 @@ import java.io._
 import org.jfree.chart._
 import org.jfree.data.general._
 
-object Chart extends App {
+trait ChartSupport {
+  
+  def createChart(map: Map[String, Tuple2[Int, Long]]) {
+  	
+  	val dataset = new DefaultPieDataset
+  	val dataset2 = new DefaultPieDataset
 
-  val dataset = new DefaultPieDataset
-  dataset.setValue("IPhone 5s", 20D) 
-  dataset.setValue("SamSung Grand", 20D)   
-  dataset.setValue("MotoG", 40D)
-  dataset.setValue("Nokia Lumia", 10D)
+  	val keys = collection.immutable.SortedSet[String]() ++ map.keySet
+  	keys.foreach { key => 
+  	  val values = map(key)	
+  	  dataset.setValue(key, values._1)
+  	  dataset2.setValue(key, values._2)
+  	}
 
-  val chart = ChartFactory.createPieChart("Mobile Sales", dataset, true, true, false)
-  val width = 640
-  val height = 480 
-  val pieChart = new File("PieChart.jpeg") 
-  ChartUtilities.saveChartAsJPEG(pieChart, chart, width, height)
+    val width = 640
+    val height = 480
 
+    val chart = ChartFactory.createPieChart("File Format Count", dataset, true, true, false)
+    val pieChart = new File("counts.jpg") 
+    ChartUtilities.saveChartAsJPEG(pieChart, chart, width, height)
+
+    val chart2 = ChartFactory.createPieChart("File Format Size", dataset2, true, true, false)
+    val pieChart2 = new File("sizes.jpg") 
+    ChartUtilities.saveChartAsJPEG(pieChart2, chart2, width, height)
+  }
 }
