@@ -26,7 +26,7 @@ object Main extends App {
   	map.contains(fo.fileType) match {
   		case true => { 
   			val values = map(fo.fileType)
-  			map += (fo.fileType -> new Tuple2(count, size))
+  			map += (fo.fileType -> new Tuple2(values._1 + 1, values._2 + fo.size))
 	  	}
   		case false => { 
   			map +=  (fo.fileType -> Tuple2(1, fo.size))
@@ -50,7 +50,7 @@ object Main extends App {
 
 		totalSize = totalSize + values._2
   	totalCount = totalCount + values._1
-  	
+
   	writer.write("\"" + key 
   		+ "\",\"" + values._1.toString 
   		+ "\",\"" + values._2.toString 
@@ -65,17 +65,17 @@ object Main extends App {
   	+ "\",\"" + totalSize.toString 
   	+ "\",\"" + formatSize(totalSize)
   	+ "\"\n")
-
+  writer.flush
   writer.close
 
   
   def formatSize(v: Long): String = {
+  	//this function is not outputting the correct results
     if (v < 1024) {  v + " B" }
     else {
       val z: Int = (63 - java.lang.Long.numberOfLeadingZeros(v)) / 10
-      ((v / (1L << (z*10))).toDouble).toString + " " + "KMGTPE".charAt(z) + "B"
-      //java.LangString.format("%.1f %sB", ((v / (1L << (z*10))).toDouble).toString, " KMGTPE".charAt(z))
-    }
+      ((v / (1L << (z*10))).toDouble).toString + " " + "KMGTPE".charAt(z - 1) + "B"
+		}
   }
 
 
